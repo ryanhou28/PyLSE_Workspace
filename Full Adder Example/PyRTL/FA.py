@@ -1,5 +1,7 @@
 import pyrtl
 import io
+
+# A simple Full Adder
 def fa(x, y, cin):
     sum = x ^ y ^ cin
     cout = x&y | y&cin | x&cin

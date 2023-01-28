@@ -1,6 +1,8 @@
 # from pyrtl import *
 import pyrtl
 import io
+
+# A Full Adder with the output being one concatenated wire
 def fa(x, y, cin):
     sum = x ^ y ^ cin
     cout = x&y | y&cin | x&cin

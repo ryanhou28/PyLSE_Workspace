@@ -1,5 +1,6 @@
 import pyrtl
 
+# Example Full Adder taken from PyRTL documentation
 def one_bit_add(a, b, carry_in):
     assert len(a) == len(b) == 1  # len returns the bitwidth
     sum = a ^ b ^ carry_in  # operators on WireVectors build the hardware

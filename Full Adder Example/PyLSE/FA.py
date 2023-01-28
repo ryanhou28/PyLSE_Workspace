@@ -5,9 +5,9 @@ from helpers import BaseTest, sim_and_gen, pulse_in_period
 
 import unittest
 
-
+# Define the full adder unit
 def full_adder(x_p, x_n, y_p, y_n, cin_p, cin_n):
-    # Define helpers to ensure same delay numbers
+    # Define helpers to ensure same delay numbers (currently the same as PyLSE example)
     def jtl(*args):
         return pylse.jtl(*args, firing_delay=5.7)
 
@@ -87,6 +87,8 @@ def full_adder(x_p, x_n, y_p, y_n, cin_p, cin_n):
     # c_n = dro(jtl(cout_1), clks[3])
 
     # return s_p, s_n, c_p, c_n
+
+    # TODO: Figure out how to output s_n and c_n
     return s_p, c_p
 
 

@@ -1,12 +1,15 @@
 # from pyrtl import *
 import pyrtl
 import io
+
 # Full Adder using only AND and ORs
 # To convert this to only using AND and ORs
 # XOR = A&(~B) | (~A)&B
 def fa(x, y, cin):
-    # sum = x ^ y ^ cin
-    # sum = (temp&(~cin)) | ((~temp)&cin) # This wouldn't work since we use an extra NOT for ~temp
+    # sum = x ^ y ^ cin # sum expression using XORs
+    # sum = (temp&(~cin)) | ((~temp)&cin) # This wouldn't work since this requires the use of an extra NOT for ~temp
+
+    #TODO: Optimize the sum expression to use the minimum amount of AND and OR gates
     sum = (x & ~y & ~cin) | (~x & y & ~cin) | (~x & ~y & cin) | (x & y & cin)
     cout = x&y | y&cin | x&cin
     return sum, cout
@@ -19,10 +22,12 @@ cin = pyrtl.Input(1, 'cin')
 sum = pyrtl.Output(1, 'sum')
 cout = pyrtl.Output(1, 'cout')
 
+# Instantiate the Full Adder
 output = fa(x, y, cin)
 sum <<= output[0]
 cout <<= output[1]
 
+# Simulation
 sim = pyrtl.Simulation()
 sim.step({'x':0, 'y':0, 'cin':0})
 sim.step({'x':0, 'y':0, 'cin':1})
@@ -39,7 +44,7 @@ sim.tracer.render_trace()
 pyrtl.synthesize()
 pyrtl.optimize()
 
-# Output to Verilog file
+# Output to Verilog file "FA_AND_OR.v"
 vfile = open("FA_AND_OR.v", "w")
 pyrtl.output_to_verilog(vfile)
 vfile.close()
@@ -63,5 +68,5 @@ gvfile.close()
 
 # SVG
 # svgfile = open("FA_AND_OR.svg", "w")
-# pyrtl.output_to_svg(svgfile)
+# pyrtl.output_to_svg(svgfile) #TODO: Find the problem with outputing to SVG
 # svgfile.close()
