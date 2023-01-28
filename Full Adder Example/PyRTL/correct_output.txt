@@ -1,0 +1,47 @@
+     ▏0                        ▏5                       
+
+ cin _____╱‾‾‾‾╲____╱‾‾‾‾╲____ ╱‾‾‾‾╲____╱‾‾‾‾
+
+cout _______________╱‾‾‾‾╲____ ╱‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+
+ sum _____╱‾‾‾‾‾‾‾‾‾╲____╱‾‾‾‾ ╲_________╱‾‾‾‾
+
+   x ____________________╱‾‾‾‾ ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+
+   y __________╱‾‾‾‾‾‾‾‾‾╲____ _____╱‾‾‾‾‾‾‾‾‾
+
+// Generated automatically via PyRTL
+// As one initial test of synthesis, map to FPGA with:
+//   yosys -p "synth_xilinx -top toplevel" thisfile.v
+
+module toplevel(clk, rst, cin, x, y, cout, sum);
+    input clk;
+    input rst;
+    input cin;
+    input x;
+    input y;
+    output cout;
+    output sum;
+
+    wire tmp10;
+    wire tmp11;
+    wire tmp12;
+    wire tmp13;
+    wire tmp14;
+    wire tmp15;
+    wire tmp16;
+
+    // Combinational
+    assign cout = tmp15;
+    assign sum = tmp13;
+    assign tmp10 = tmp11 | tmp14;
+    assign tmp11 = x & y;
+    assign tmp12 = x ^ y;
+    assign tmp13 = tmp12 ^ cin;
+    assign tmp14 = y & cin;
+    assign tmp15 = tmp10 | tmp16;
+    assign tmp16 = x & cin;
+
+endmodule
+
+
