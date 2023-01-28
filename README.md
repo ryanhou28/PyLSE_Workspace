@@ -6,7 +6,7 @@
 [PyRTL Documentation](https://pyrtl.readthedocs.io/en/latest/index.html)  
 [PyLSE Github](https://github.com/UCSBarchlab/PyLSE)  
 
-[A helpful TGF visualizer](https://dreampuf.github.io/GraphvizOnline/)
+[A helpful GraphViz visualizer](https://dreampuf.github.io/GraphvizOnline/)
 
 
 ## Current goals:
@@ -20,5 +20,5 @@
     - Full Adder PyLSE: PyLSE/FA.py
 
 ## TODO:
-- Optimize the logic expression for the Full Adder to use less gates
+- Optimize the logic expression for the Full Adder to use less gates (currently uses 15 LA/FA cells), add inverse of outputs (sum_n, cout_n)
     - Can take a look at [examples/full_adder_xsfq.py](https://github.com/UCSBarchlab/PyLSE/blob/main/examples/full_adder_xsfq.py) in the PyLSE repo, which implements a Full Adder with less elements.

@@ -33,7 +33,9 @@ def full_adder(x_p, x_n, y_p, y_n, cin_p, cin_n):
     #   FA -> OR
     #   LA -> AND
 
-    # Split the inputs
+    # Currently uses 10 LA, 5 FA cells. (15 Total)
+
+    # Split the inputs so we have enough wires
     cin_p0, cin_p1 = s(cin_p)
     cin_p2, cin_p3 = s(cin_p0)
     cin_p4, cin_p5 = s(cin_p1)
