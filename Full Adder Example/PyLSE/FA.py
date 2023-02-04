@@ -33,91 +33,127 @@ def full_adder(x_p, x_n, y_p, y_n, cin_p, cin_n):
     #   FA -> OR
     #   LA -> AND
 
-    # Currently uses 10 LA, 5 FA cells. (15 Total)
+    # Currently uses 10 LA, 8 FA cells. (18 Total)
+    # TODO: Optimize it to match optimal solution with 14 total cells
+    # Split input to get enough wires
 
-    # Split the inputs so we have enough wires
-    cin_p0, cin_p1 = s(cin_p)
-    cin_p2, cin_p3 = s(cin_p0)
-    cin_p4, cin_p5 = s(cin_p1)
+    # Split x_p
+    x_ps0, x_p0 = s(x_p)
+    x_p1 , x_p2 = s(x_ps0)
+    # Split x_n
+    x_ns0, x_n0 = s(x_n)
+    x_n1 , x_n2 = s(x_ns0)
+    # Split y_p
+    y_ps0, y_p0 = s(y_p)
+    y_p1 , y_p2 = s(y_ps0)
+    # Split y_n
+    y_ns0, y_n0 = s(y_n)
+    y_n1 , y_n2 = s(y_ns0)
+    # Split cin_p
+    cin_ps0, cin_p0 = s(cin_p)
+    cin_p1 , cin_p2 = s(cin_ps0)
+    # Split cin_n
+    cin_ns0, cin_n0 = s(cin_n)
+    cin_n1 , cin_n2 = s(cin_ns0)
 
-    cin_n0, cin_n1 = s(cin_n)
+    # Define logic gates
+    and1 = la(x_p0, y_p0)
+    and2 = la(x_n0, y_p1)
+    and3 = la(x_p1, y_n0)
+    and4 = la(x_n1, y_n1)
 
-    x_p0, x_p1 = s(x_p)
-    x_p2, x_p3 = s(x_p0)
-    x_n0, x_n1 = s(x_n)
-    y_p0, y_p1 = s(y_p)
-    y_p2, y_p3 = s(y_p0)
-    y_n0, y_n1 = s(y_n)
+    # Split our results
+    and1_0, and1_1 = s(and1)
+    and4_0, and4_1 = s(and4)
 
+    OR1 = fa(and1_0, and4_0)
+    OR2 = fa(and2, and3)
 
-    and_n17 = la(cin_p2, x_p1)
-    and_n21 = la(cin_p3, y_p1)
-    and_n19 = la(x_p2, y_p2)
+    # Split results
+    OR1_0, OR1_1 = s(OR1)
+    OR2_0, OR2_1 = s(OR2)
 
-    and_n19_0, and_n19_1 = s(and_n19)
+    xy   = fa(x_p2, y_p2)
+    xnyn = fa(x_n2, y_n2)
+
+    cxy     = la(cin_p0, xy)
+    cnxnyn  = la(cin_n0, xnyn)
+
+    c_p = fa(and1_1, cxy)
+    c_n = fa(and4_1, cnxnyn)
+
+    cOR1   = la(cin_p1, OR1_0)
+    cnOR2  = la(cin_n1, OR2_0)
+
+    cOR2   = la(cin_p2, OR2_1)
+    cnOR1  = la(cin_n2, OR1_1)
+
+    s_p = fa(cOR1, cnOR2)
+    s_n = fa(cOR2, cnOR1)
+
+    return s_p, s_n, c_p, c_n
+
+def test_single(a, b, c):
+    # Tests input a_p = a, b_p = b at t=0
+    # Default times of each signal
+    a_p_t, b_p_t, c_p_t = 0, 0, 0
+    a_n_t, b_n_t, c_n_t = 1, 1, 1
+    if (a == 0):
+        a_n_t = 0
+        a_p_t = 1
     
-    and_n5 = la(cin_p4, and_n19_0)
-    or_n10 = fa(and_n21, and_n19_1)
-    and_n11 = la(x_p3, y_n0)
-    and_n13 = la(y_n1, x_n0)
-    and_n12 = la(x_n1, y_p3)
+    if (b == 0):
+        b_n_t = 0
+        b_p_t = 1
 
-    or_n7 = fa(and_n17, or_n10)
-    and_n6 = la(cin_p5, and_n13)
-    and_n8 = la(and_n11, cin_n0)
-    and_n9 = la(cin_n1, and_n12)
-
-    cout = or_n7
-
-    or_n22 = fa(and_n8, and_n9)
-
-    or_n15 = fa(and_n6, or_n22)
-
-    or_n16 = fa(and_n5, or_n15)
-
-    sum = or_n16
-
-    sum_0, sum_1 = s(sum)
-    cout_0, cout_1 = s(cout)
+    if (c == 0):
+        c_n_t = 0
+        c_p_t = 1
     
-    s_p = sum_0
-    c_p = cout_0
+    a_p = pylse.inp_at(a_p_t*T, name='a_p')
+    a_n = pylse.inp_at(a_n_t*T,  name='a_n')
+    b_p = pylse.inp_at(b_p_t*T, name='b_p')
+    b_n = pylse.inp_at(b_n_t*T, name='b_n')
+    cin_p = pylse.inp_at(c_p_t*T, name='cin_p')
+    cin_n = pylse.inp_at(c_n_t*T, name='cin_n')
 
-    # s_p = dro(jtl(sum_0), clks[0])
-    # s_n = dro(jtl(sum_1), clks[1])
-    # c_p = dro(jtl(cout_0), clks[2])
-    # c_n = dro(jtl(cout_1), clks[3])
+    return a_p, a_n, b_p, b_n, cin_p, cin_n
 
-    # return s_p, s_n, c_p, c_n
-
-    # TODO: Figure out how to output s_n and c_n
-    return s_p, c_p
-
-
+def test_multiple(T_ap, T_an, T_bp, T_bn):
+    # Provide multiple inputs
+    a_p = pylse.inp_at(*T_ap, name='a_p')
+    a_n = pylse.inp_at(*T_an,  name='a_n')
+    b_p = pylse.inp_at(*T_bp, name='b_p')
+    b_n = pylse.inp_at(*T_bn, name='b_n')
+    cin_p = pylse.inp_at(*T_cp, name='cin_p')
+    cin_n = pylse.inp_at(*T_cn, name='cin_n')
+    return a_p, a_n, b_p, b_n, cin_p, cin_n
 
 
 if __name__ == "__main__":
 
     T = 80  # duration of a phase
 
-    # Provided input: a=1, b=1, cin=0
-    a_p = pylse.inp_at(0*T, name='a_p')
-    a_n = pylse.inp_at(1*T,  name='a_n')
-    b_p = pylse.inp_at(0*T, name='b_p')
-    b_n = pylse.inp_at(1*T, name='b_n')
-    cin_p = pylse.inp_at(1*T, name='cin_p')
-    cin_n = pylse.inp_at(0*T, name='cin_n')
+    # Define multiple pulses for testing
+    T_ap = [0*T, 2*T, 4*T]
+    T_an = [1*T, 3*T, 5*T, 6*T]
+    T_bp = [0*T, 2*T, 5*T]
+    T_bn = [1*T, 3*T, 4*T, 6*T]
+    T_cp = [1*T, 2*T, 6*T]
+    T_cn = [0*T, 3*T, 4*T, 5*T]
 
-    # Call full_adder_xSFQ()
-    # s_p, s_n, cout_p, cout_n = full_adder(a_p, a_n, b_p, b_n, cin_p, cin_n)
-    s_p, cout_p= full_adder(a_p, a_n, b_p, b_n, cin_p, cin_n)
+    # Test input
+    a_p, a_n, b_p, b_n, cin_p, cin_n = test_single(1, 1, 1)
+    # a_p, a_n, b_p, b_n, cin_p, cin_n = test_multiple(T_ap, T_an, T_bp, T_bn, T_cp, T_cn)
+
+    # Instantiate the output
+    s_p, s_n, cout_p, cout_n = full_adder(a_p, a_n, b_p, b_n, cin_p, cin_n)
 
     # Probe outputs
-    # Expected output: s=0, cout=1
     pylse.inspect(s_p, 's_p')
-    # pylse.inspect(s_n, 's_n')
+    pylse.inspect(s_n, 's_n')
     pylse.inspect(cout_p, 'cout_p')
-    # pylse.inspect(cout_n, 'cout_n')
+    pylse.inspect(cout_n, 'cout_n')
 
     # Run simulation
     sim = pylse.Simulation()
