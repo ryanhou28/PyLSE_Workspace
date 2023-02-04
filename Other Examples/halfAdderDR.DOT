@@ -1,0 +1,51 @@
+digraph g {
+    graph [splines="spline", outputorder="edgesfirst"];
+    node [shape=circle, style=filled, fillcolor=lightblue1,
+        fontcolor=black, fontname=helvetica, penwidth=0,
+        fixedsize=shape];
+    edge [labelfloat=false, penwidth=2, color=deepskyblue, arrowsize=.5];
+    n0 [label="", height=.1, width=.1];
+    n1 [label="carry_n", shape=house, fillcolor=lawngreen];
+    n2 [label="", height=.1, width=.1];
+    n3 [label="carry_p", shape=house, fillcolor=lawngreen];
+    n4 [label="", height=.1, width=.1];
+    n5 [label="sum_n", shape=house, fillcolor=lawngreen];
+    n6 [label="", height=.1, width=.1];
+    n7 [label="sum_p", shape=house, fillcolor=lawngreen];
+    n8 [label="not", shape=invtriangle];
+    n9 [label="or"];
+    n10 [label="and"];
+    n11 [label="or"];
+    n12 [label="not", shape=invtriangle];
+    n13 [label="and"];
+    n14 [label="and"];
+    n15 [label="or"];
+    n16 [label="and"];
+    n17 [label="x_p", shape=invhouse, fillcolor=coral];
+    n18 [label="y_p", shape=invhouse, fillcolor=coral];
+    n0 -> n1 [label="", penwidth="2", arrowhead="normal"];
+    n2 -> n3 [label="", penwidth="2", arrowhead="normal"];
+    n4 -> n5 [label="", penwidth="2", arrowhead="normal"];
+    n6 -> n7 [label="", penwidth="2", arrowhead="normal"];
+    n8 -> n9 [label="", penwidth="2", arrowhead="normal"];
+    n8 -> n10 [label="", penwidth="2", arrowhead="normal"];
+    n8 -> n13 [label="", penwidth="2", arrowhead="normal"];
+    n9 -> n0 [label="", penwidth="2", arrowhead="normal"];
+    n10 -> n11 [label="", penwidth="2", arrowhead="normal"];
+    n11 -> n4 [label="", penwidth="2", arrowhead="normal"];
+    n12 -> n9 [label="", penwidth="2", arrowhead="normal"];
+    n12 -> n10 [label="", penwidth="2", arrowhead="normal"];
+    n12 -> n16 [label="", penwidth="2", arrowhead="normal"];
+    n13 -> n15 [label="", penwidth="2", arrowhead="normal"];
+    n14 -> n2 [label="", penwidth="2", arrowhead="normal"];
+    n14 -> n11 [label="", penwidth="2", arrowhead="normal"];
+    n15 -> n6 [label="", penwidth="2", arrowhead="normal"];
+    n16 -> n15 [label="", penwidth="2", arrowhead="normal"];
+    n17 -> n12 [label="", penwidth="2", arrowhead="normal"];
+    n17 -> n13 [label="", penwidth="2", arrowhead="normal"];
+    n17 -> n14 [label="", penwidth="2", arrowhead="normal"];
+    n18 -> n8 [label="", penwidth="2", arrowhead="normal"];
+    n18 -> n14 [label="", penwidth="2", arrowhead="normal"];
+    n18 -> n16 [label="", penwidth="2", arrowhead="normal"];
+}
+
