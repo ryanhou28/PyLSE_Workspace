@@ -1,0 +1,17 @@
+# YOSYS script for synthesizing FA_DR.v
+
+# read design
+read_verilog FA_DR.v
+
+hierarchy -top toplevel
+
+# convert processes to netlist elements and perform optimizations
+proc; opt
+
+# translate design to gate logic and perform optimizations
+techmap; opt
+
+abc -g NAND
+
+# write synthesized design
+write_verilog synth/FA_DR_synth.v

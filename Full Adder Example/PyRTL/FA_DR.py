@@ -15,11 +15,11 @@ def fa(x_p, x_n, y_p, y_n, cin_p, cin_n):
 
 # Testbench
 x_p = pyrtl.Input(1, 'x_p')
-x_n = ~x_p
+x_n = pyrtl.Input(1, 'x_n')
 y_p = pyrtl.Input(1, 'y_p')
-y_n = ~y_p
+y_n = pyrtl.Input(1, 'y_n')
 cin_p = pyrtl.Input(1, 'cin_p')
-cin_n = ~cin_p
+cin_n = pyrtl.Input(1, 'cin_n')
 
 sum_p = pyrtl.Output(1, 'sum_p')
 sum_n = pyrtl.Output(1, 'sum_n')
@@ -35,14 +35,14 @@ cout_n <<= output[3]
 
 # Simulation
 sim = pyrtl.Simulation()
-sim.step({'x_p':0, 'y_p':0, 'cin_p':0}) #   Correct Output: cout_p = 0, sum_p = 0
-sim.step({'x_p':0, 'y_p':0, 'cin_p':1}) #   Correct Output: cout_p = 0, sum_p = 1
-sim.step({'x_p':0, 'y_p':1, 'cin_p':0}) #   Correct Output: cout_p = 0, sum_p = 1
-sim.step({'x_p':0, 'y_p':1, 'cin_p':1}) #   Correct Output: cout_p = 1, sum_p = 0
-sim.step({'x_p':1, 'y_p':0, 'cin_p':0}) #   Correct Output: cout_p = 0, sum_p = 1
-sim.step({'x_p':1, 'y_p':0, 'cin_p':1}) #   Correct Output: cout_p = 1, sum_p = 0
-sim.step({'x_p':1, 'y_p':1, 'cin_p':0}) #   Correct Output: cout_p = 1, sum_p = 0
-sim.step({'x_p':1, 'y_p':1, 'cin_p':1}) #   Correct Output: cout_p = 1, sum_p = 1
+sim.step({'x_p':0, 'x_n':1, 'y_p':0, 'y_n':1, 'cin_p':0, 'cin_n':1}) #   Correct Output: cout_p = 0, sum_p = 0
+sim.step({'x_p':0, 'x_n':1, 'y_p':0, 'y_n':1, 'cin_p':1, 'cin_n':0}) #   Correct Output: cout_p = 0, sum_p = 1
+sim.step({'x_p':0, 'x_n':1, 'y_p':1, 'y_n':0, 'cin_p':0, 'cin_n':1}) #   Correct Output: cout_p = 0, sum_p = 1
+sim.step({'x_p':0, 'x_n':1, 'y_p':1, 'y_n':0, 'cin_p':1, 'cin_n':0}) #   Correct Output: cout_p = 1, sum_p = 0
+sim.step({'x_p':1, 'x_n':0, 'y_p':0, 'y_n':1, 'cin_p':0, 'cin_n':1}) #   Correct Output: cout_p = 0, sum_p = 1
+sim.step({'x_p':1, 'x_n':0, 'y_p':0, 'y_n':1, 'cin_p':1, 'cin_n':0}) #   Correct Output: cout_p = 1, sum_p = 0
+sim.step({'x_p':1, 'x_n':0, 'y_p':1, 'y_n':0, 'cin_p':0, 'cin_n':1}) #   Correct Output: cout_p = 1, sum_p = 0
+sim.step({'x_p':1, 'x_n':0, 'y_p':1, 'y_n':0, 'cin_p':1, 'cin_n':0}) #   Correct Output: cout_p = 1, sum_p = 1
 sim.tracer.render_trace()
 
 # Synthesis
