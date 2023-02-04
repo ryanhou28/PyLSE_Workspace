@@ -1,9 +1,10 @@
 import pyrtl
 import io
 
-# A half adder
+# A half adder using only AND and ORs with complements of inputs
 def halfAdder(x, y):
-    sum = x ^ y
+    # sum = x ^ y
+    sum = (~x & y) | (x & ~y)
     carry = x & y
     return sum, carry
 
@@ -35,3 +36,9 @@ pyrtl.optimize()
 with io.StringIO() as vfile:
     pyrtl.output_to_verilog(vfile)
     print(vfile.getvalue())
+
+# Visualization
+# Graphviz Export
+gvfile = open("halfAdder.DOT", "w")
+pyrtl.output_to_graphviz(gvfile)
+gvfile.close()

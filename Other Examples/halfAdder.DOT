@@ -1,0 +1,34 @@
+digraph g {
+    graph [splines="spline", outputorder="edgesfirst"];
+    node [shape=circle, style=filled, fillcolor=lightblue1,
+        fontcolor=black, fontname=helvetica, penwidth=0,
+        fixedsize=shape];
+    edge [labelfloat=false, penwidth=2, color=deepskyblue, arrowsize=.5];
+    n0 [label="", height=.1, width=.1];
+    n1 [label="carry", shape=house, fillcolor=lawngreen];
+    n2 [label="", height=.1, width=.1];
+    n3 [label="sum", shape=house, fillcolor=lawngreen];
+    n4 [label="or"];
+    n5 [label="and"];
+    n6 [label="and"];
+    n7 [label="and"];
+    n8 [label="not", shape=invtriangle];
+    n9 [label="not", shape=invtriangle];
+    n10 [label="x", shape=invhouse, fillcolor=coral];
+    n11 [label="y", shape=invhouse, fillcolor=coral];
+    n0 -> n1 [label="", penwidth="2", arrowhead="normal"];
+    n2 -> n3 [label="", penwidth="2", arrowhead="normal"];
+    n4 -> n2 [label="", penwidth="2", arrowhead="normal"];
+    n5 -> n0 [label="", penwidth="2", arrowhead="normal"];
+    n6 -> n4 [label="", penwidth="2", arrowhead="normal"];
+    n7 -> n4 [label="", penwidth="2", arrowhead="normal"];
+    n8 -> n6 [label="", penwidth="2", arrowhead="normal"];
+    n9 -> n7 [label="", penwidth="2", arrowhead="normal"];
+    n10 -> n5 [label="", penwidth="2", arrowhead="normal"];
+    n10 -> n7 [label="", penwidth="2", arrowhead="normal"];
+    n10 -> n8 [label="", penwidth="2", arrowhead="normal"];
+    n11 -> n5 [label="", penwidth="2", arrowhead="normal"];
+    n11 -> n6 [label="", penwidth="2", arrowhead="normal"];
+    n11 -> n9 [label="", penwidth="2", arrowhead="normal"];
+}
+
