@@ -5,11 +5,11 @@ import io
 # Full Adder with Dual Rail
 def fa(x_p, x_n, y_p, y_n, cin_p, cin_n):
     
-    s_p = (x_p & y_n & cin_n) | (x_n & y_p & cin_n) | (x_n & y_n & cin_p) | (x_p & y_p & cin_p)
-    s_n = (x_n & y_n & cin_n) | (x_n & cin_p & y_p) | (y_p & x_p & cin_n) | (cin_p & x_p & y_n)
+    s_p = (cin_p & ((x_n & y_n) | (x_p & y_p)) ) | (cin_n & ((x_n & y_p) | (x_p & y_n)))
+    s_n = (cin_p & ((x_p & y_n) | (x_n & y_p)) ) | (cin_n & ((x_p & y_p) | (x_n & y_n)))
 
     cout_p = (x_p & y_p) | (y_p & cin_p) | (x_p & cin_p)
-    cout_n = (x_n & y_n) | (x_n & cin_n) | (y_n & cin_n)
+    cout_n = (x_n & y_n) | (y_n & cin_n) | (x_n & cin_n)
 
     return s_p, s_n, cout_p, cout_n
 
