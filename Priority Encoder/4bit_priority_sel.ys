@@ -1,0 +1,18 @@
+# YOSYS script for synthesis
+
+# read design
+read_verilog -sv 4bit_priority_sel.v
+
+# set top level module of design
+hierarchy -top priority_sel1
+
+# convert processes to netlist elements and perform optimizations
+proc; opt
+
+# translate design to gate logic and perform optimizations
+techmap; opt
+
+# abc -g NAND
+
+# write synthesized design
+write_verilog synth/4bit_priority_sel.v
