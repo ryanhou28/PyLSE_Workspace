@@ -22,6 +22,13 @@
 - Start on Project 2:
     - Familiarize ourselves with the designs from SuperNPU (or pick another design with multiple distinct blocks)
     - Decide on a block from the design that we can implement
+    - List of potential blocks:
+      - MUX, DEMUX
+      - Multiplier
+      - DAU (Data Alignment Unit)
+      - Shift Register Memory
+      - PE (Processing Element)
+        - Contains multiplier and adder
 
 
 
