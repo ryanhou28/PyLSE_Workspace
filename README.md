@@ -25,6 +25,10 @@
     - List of potential blocks:
       - MUX, DEMUX
       - Multiplier
+        - Relevant Papers:
+            - https://ieeexplore.ieee.org/document/8662351
+            - https://ieeexplore.ieee.org/document/8990905
+            - https://ieeexplore.ieee.org/document/8276304
       - DAU (Data Alignment Unit)
       - Shift Register Memory
       - PE (Processing Element)
