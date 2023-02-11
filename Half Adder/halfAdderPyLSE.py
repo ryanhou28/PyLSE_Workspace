@@ -1,4 +1,4 @@
-# An attempt at implementing a Full Adder with AND and ORs (with given NOTs of inputs)
+# An attempt at implementing a half adder with AND and ORs (with given NOTs of inputs)
 
 import pylse
 from helpers import BaseTest, sim_and_gen, pulse_in_period
