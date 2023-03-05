@@ -1,0 +1,27 @@
+/////////////////////////////////////////////////////////////
+// Created by: Synopsys DC Expert(TM) in wire load mode
+// Version   : T-2022.03-SP3
+// Date      : Sat Mar  4 22:44:18 2023
+/////////////////////////////////////////////////////////////
+
+
+module fa ( x, y, cin, sum, cout );
+  input x, y, cin;
+  output sum, cout;
+  wire   n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11;
+
+  i1s1 U14 ( .DIN(n7), .Q(n1) );
+  or2s2 U15 ( .DIN1(n8), .DIN2(n9), .Q(cout) );
+  and2s1 U16 ( .DIN1(cin), .DIN2(x), .Q(n9) );
+  and2s1 U17 ( .DIN1(y), .DIN2(n1), .Q(n8) );
+  i1s1 U18 ( .DIN(cin), .Q(n4) );
+  and2s1 U19 ( .DIN1(n10), .DIN2(n11), .Q(n7) );
+  or2s1 U20 ( .DIN1(n2), .DIN2(cin), .Q(n10) );
+  or2s1 U21 ( .DIN1(n4), .DIN2(x), .Q(n11) );
+  i1s1 U22 ( .DIN(x), .Q(n2) );
+  or2s2 U23 ( .DIN1(n5), .DIN2(n6), .Q(sum) );
+  and2s1 U24 ( .DIN1(n7), .DIN2(y), .Q(n5) );
+  and2s1 U25 ( .DIN1(n1), .DIN2(n3), .Q(n6) );
+  i1s1 U26 ( .DIN(y), .Q(n3) );
+endmodule
+

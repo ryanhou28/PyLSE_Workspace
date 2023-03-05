@@ -1,0 +1,20 @@
+/////////////////////////////////////////////////////////////
+// Created by: Synopsys DC Expert(TM) in wire load mode
+// Version   : T-2022.03-SP3
+// Date      : Sat Mar  4 22:46:19 2023
+/////////////////////////////////////////////////////////////
+
+
+module ps ( req, en, gnt, req_up );
+  input [1:0] req;
+  output [1:0] gnt;
+  input en;
+  output req_up;
+  wire   n1;
+
+  and2s2 U2 ( .DIN1(req[1]), .DIN2(en), .Q(gnt[1]) );
+  and3s2 U5 ( .DIN1(en), .DIN2(n1), .DIN3(req[0]), .Q(gnt[0]) );
+  i1s1 U6 ( .DIN(req[1]), .Q(n1) );
+  or2s2 U7 ( .DIN1(req[0]), .DIN2(req[1]), .Q(req_up) );
+endmodule
+

@@ -1,0 +1,45 @@
+
+
+VCS = vcs -V -sverilog +vc -Mupdate -line -full64 +vcs+vcdpluson -kdb -lca -debug_access+all
+
+CLOCK_PERIOD = 30.0
+
+VCS += +define+CLOCK_PERIOD=$(CLOCK_PERIOD)+
+
+MODULES = verilog/ps.sv
+
+LIB = cell_lib_test.v
+
+ps_syn:
+	$(VCS) -y $(LIB) -sverilog $(MODULES)
+
+# CLEANUP
+
+clean: clean_exe clean_run_files
+
+nuke: clean clean_output_dir clean_synth
+clean_exe:
+	rm -rf *simv *.daidir csrc *.key   # created by simv/syn_simv/vis_simv
+	rm -rf vcdplus.vpd vc_hdrs.h       # created by simv/syn_simv/vis_simv
+	rm -rf verdi* novas* *fsdb*        # verdi files
+	rm -rf dve* inter.vpd DVEfiles     # old DVE debugger
+
+clean_run_files:
+	rm -rf output/*.out output/*.wb output/*.ppln
+	rm -rf *.elf *.dump *.mem debug_bin # legacy program.mem compilation files
+	rm -rf *.out                        # legacy execution outputs
+
+clean_synth:
+	cd synth && rm -rf *.vg *_svsim.sv *.res *.rep *.ddc *.chk *.syn *.out *.db *.svf *.mr *.pvl command.log
+
+clean_output_dir:
+	rm -rf output/
+
+# implicit in clean_output_dir, and therefore nuke
+clean_programs:
+	rm -rf output/*.mem
+	rm -rf output/*.dump*
+
+.PHONY: clean nuke clean_%
+
+# :)
